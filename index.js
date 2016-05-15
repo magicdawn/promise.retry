@@ -65,16 +65,20 @@ module.exports = function promiseRetry(fn, options) {
   });
 };
 
-function RetryError(times, timeout, fn) {
+function RetryError(options) {
   Error.call(this);
 
   // props
-  this.times = times;
-  this.timeout = timeout;
-  this.fn = fn;
+  this.times = options.times;
+  this.timeout = options.timeout;
+  this.fn = options.fn;
+  this.errors = options.errors;
 
   // message
-  this.message = `tried function ${ fn.name || '<anonymous>' } ${ times } times with timeout = ${ timeout }ms`;
+  this.message = `tried function ${ this.fn.name || '<anonymous>' } ${ this.times } times`;
+  if (this.timeout) {
+    this.message += ` with timeout = ${ this.timeout }ms`;
+  }
 
   // stack
   Error.captureStackTrace(this, RetryError);
