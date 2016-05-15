@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "co": "^4.6.0",
-    "promise.timeout": "^0.0.1"
+    "promise.timeout": "^0.0.2"
   },
   "files": [
     "index.js",
