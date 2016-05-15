@@ -27,5 +27,9 @@
     "istanbul": "^0.4.3",
     "mocha": "^2.4.5",
     "should": "^8.3.1"
+  },
+  "dependencies": {
+    "co": "^4.6.0",
+    "promise.timeout": "^0.0.1"
   }
 }
