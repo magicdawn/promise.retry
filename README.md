@@ -35,7 +35,7 @@ const fnWithRetry = pretry(fn, options);
     - `onerror` : `function(err, index)` add extra action on an attempt error
 
 ### TimeoutError
-reexport from `promise.timeout`
+reexport from `promise.timeout`, see https://github.com/magicdawn/promise.timeout#api
 
 ### RetryError
 if all attempts failed, `p = fnWithRetry()`, `p` will be reject with a RetryError instance.
