@@ -1,0 +1,31 @@
+{
+  "name": "promise.retry",
+  "version": "0.0.1",
+  "description": "add (timeout and fail) retry for async functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/magicdawn/promise.retry.git"
+  },
+  "keywords": [
+    "promise",
+    "retry",
+    "async"
+  ],
+  "author": "magicdawn",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/magicdawn/promise.retry/issues"
+  },
+  "homepage": "https://github.com/magicdawn/promise.retry#readme",
+  "devDependencies": {
+    "co-mocha": "^1.1.2",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
+    "should": "^8.3.1"
+  }
+}
