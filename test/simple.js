@@ -51,6 +51,17 @@ describe('Simple', function() {
 
   // 其他操作
   it('onerror extra operation', function*() {
-    // TODO
+
+    let i = 0;
+    const tryfn = pretry(fn, {
+      times: times,
+      onerror: function(e, index) {
+        e.message.should.match(/less than 3/);
+        i++;
+      }
+    });
+
+    yield tryfn();
+    i.should.equal(2);
   });
 });
