@@ -32,5 +32,11 @@
   "dependencies": {
     "co": "^4.6.0",
     "promise.timeout": "^0.0.1"
-  }
+  },
+  "files": [
+    "index.js",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ]
 }
