@@ -51,7 +51,6 @@ describe('Simple', function() {
 
   // 其他操作
   it('onerror extra operation', function*() {
-
     let i = 0;
     const tryfn = pretry(fn, {
       times: times,
@@ -63,5 +62,38 @@ describe('Simple', function() {
 
     yield tryfn();
     i.should.equal(2);
+  });
+
+  it('it works with timeout', function*() {
+    let fn = function() {
+      return new Promise(function(resolve) {
+        setTimeout(function() {
+          resolve(20);
+        }, 20);
+      });
+    };
+
+    const tryfn = pretry(fn, {
+      times: times,
+      timeout: 10,
+      onerror: function(e) {
+        e.should.instanceof(pretry.TimeoutError);
+      }
+    });
+
+    try {
+      yield tryfn();
+    } catch (e) {
+      e.should.instanceof(pretry.RetryError);
+
+      // props
+      e.times.should.equal(times);
+      e.timeout.should.equal(10);
+      e.message.should.match(/tried function [\s\S]+? \d+ times/);
+      e.message.should.match(/with timeout = 10ms/);
+      e.errors.forEach(_e => {
+        _e.should.instanceof(pretry.TimeoutError);
+      });
+    }
   });
 });
