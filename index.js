@@ -23,11 +23,12 @@ module.exports = function promiseRetry(fn, options) {
 
   // 超时
   const _timeout = options.timeout || false;
-  if (_timeout) fn = ptimeout(fn, _timeout);
+  if (_timeout) {
+    fn = ptimeout(fn, _timeout, true); // enable onCancel
+  }
 
   // 额外错误处理
   const onerror = options.onerror;
-
 
   return co.wrap(function*() {
     const ctx = this;
@@ -35,7 +36,8 @@ module.exports = function promiseRetry(fn, options) {
     const errors = new Array(times);
 
     for (let i = 0; i < times; i++) {
-      let result, err;
+      let result;
+      let err;
       try {
         result = yield fn.apply(ctx, args);
       } catch (e) {
