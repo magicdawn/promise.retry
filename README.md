@@ -52,8 +52,12 @@ props
 
 ## See Also
 
-- [promise.map](https://github.com/magicdawn/promise.map)
 - [promise.ify](https://github.com/magicdawn/promise.ify)
+- [promise.map](https://github.com/magicdawn/promise.map)
+- [promise.timeout](https://github.com/magicdawn/promise.timeout)
+- [promise.retry](https://github.com/magicdawn/promise.retry)
+- [promise.obj](https://github.com/magicdawn/promise.obj)
+- [promise.delay](https://github.com/magicdawn/promise.delay)
 
 ## License
 
