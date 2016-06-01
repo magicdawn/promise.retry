@@ -1,6 +1,6 @@
 {
   "name": "promise.retry",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "add (timeout and fail) retry for async functions",
   "main": "index.js",
   "scripts": {
