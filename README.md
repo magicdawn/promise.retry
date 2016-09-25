@@ -58,7 +58,7 @@ props
 - [promise.ify](https://github.com/magicdawn/promise.ify)
 - [promise.cb](https://github.com/magicdawn/promise.cb)
 - [promise.obj](https://github.com/magicdawn/promise.obj)
-- [promise.delay](https://github.com/magicdawn/promise.delay)
+- [promise.sleep](https://github.com/magicdawn/promise.sleep)
 
 ## License
 
