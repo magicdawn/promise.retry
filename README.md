@@ -1,4 +1,6 @@
 # promise.retry
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/magicdawn/promise.retry.svg)](https://greenkeeper.io/)
 > add (timeout and fail) retry for async functions
 
 [![Build Status](https://img.shields.io/travis/magicdawn/promise.retry.svg?style=flat-square)](https://travis-ci.org/magicdawn/promise.retry)

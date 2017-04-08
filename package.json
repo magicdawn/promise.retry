@@ -26,8 +26,8 @@
     "co-mocha": "^1.1.2",
     "coveralls": "^2.11.9",
     "istanbul": "^0.4.3",
-    "mocha": "^2.4.5",
-    "should": "^8.3.1"
+    "mocha": "^3.2.0",
+    "should": "^11.2.1"
   },
   "dependencies": {
     "co": "^4.6.0",
