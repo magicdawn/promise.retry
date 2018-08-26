@@ -1,5 +1,10 @@
 # Changelog
 
+## v0.2.0 2018-08-26
+
+- use prettier
+- use async/await, require node >= 7.6.0
+
 ## v0.1.0 2016-06-02
 - use `promise.timeout@0.1.0`
 

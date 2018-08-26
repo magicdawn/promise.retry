@@ -2,13 +2,13 @@
 > add (timeout and fail) retry for async functions
 
 [![Build Status](https://img.shields.io/travis/magicdawn/promise.retry.svg?style=flat-square)](https://travis-ci.org/magicdawn/promise.retry)
-[![Coverage Status](https://img.shields.io/coveralls/magicdawn/promise.retry.svg?style=flat-square)](https://coveralls.io/github/magicdawn/promise.retry?branch=master)
+[![Coverage Status](https://img.shields.io/codecov/c/github/magicdawn/promise.retry.svg?style=flat-square)](https://codecov.io/gh/magicdawn/promise.retry)
 [![npm version](https://img.shields.io/npm/v/promise.retry.svg?style=flat-square)](https://www.npmjs.com/package/promise.retry)
 [![npm downloads](https://img.shields.io/npm/dm/promise.retry.svg?style=flat-square)](https://www.npmjs.com/package/promise.retry)
 [![npm license](https://img.shields.io/npm/l/promise.retry.svg?style=flat-square)](http://magicdawn.mit-license.org)
 
 ## Note
-this is target ES6(generator function) environment.
+this package require async/await environment.
 
 ## Install
 ```

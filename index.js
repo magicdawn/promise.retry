@@ -1,60 +1,48 @@
-'use strict';
-
-/**
- * module dependencies
- */
-
-const co = require('co');
-const ptimeout = require('promise.timeout');
-const TimeoutError = ptimeout.TimeoutError;
-const inherits = require('util').inherits;
-
-/**
- * main fn
- */
+const ptimeout = require('promise.timeout')
+const TimeoutError = ptimeout.TimeoutError
+const inherits = require('util').inherits
 
 module.exports = function promiseRetry(fn, options) {
-
-  // fn 备份
-  const originalFn = fn;
+  // backup
+  const originalFn = fn
 
   // 重试次数
-  const times = options.times || 5; // 5 次
+  const times = options.times || 5 // 5 次
 
   // 超时
-  const _timeout = options.timeout || false;
+  const _timeout = options.timeout || false
   if (_timeout) {
-    fn = ptimeout(fn, _timeout, true); // enable onCancel
+    fn = ptimeout(fn, _timeout, true) // enable onCancel
   }
 
   // 额外错误处理
-  const onerror = options.onerror;
+  const onerror = options.onerror
 
-  return co.wrap(function*() {
-    const ctx = this;
-    const args = [].slice.call(arguments);
-    const errors = new Array(times);
+  return async function() {
+    const ctx = this
+    const args = [].slice.call(arguments)
+    const errors = new Array(times)
 
     for (let i = 0; i < times; i++) {
-      let result;
-      let err;
+      let result
+      let err
       try {
-        result = yield fn.apply(ctx, args);
+        result = await fn.apply(ctx, args)
       } catch (e) {
-        err = e;
+        err = e
       }
 
       if (err) {
-        errors[i] = err;
+        errors[i] = err
 
         // 额外错误处理
         if (onerror) {
-          onerror(err, i); // err, current attempt, wait ?
+          onerror(err, i) // err, current attempt, wait ?
         }
 
-        continue;
+        continue
       } else {
-        return result;
+        return result
       }
     }
 
@@ -62,35 +50,37 @@ module.exports = function promiseRetry(fn, options) {
       times: times,
       timeout: _timeout,
       fn: originalFn,
-      errors: errors // 错误列表
-    });
-  });
-};
+      errors: errors, // 错误列表
+    })
+  }
+}
 
 function RetryError(options) {
-  Error.call(this);
+  Error.call(this)
 
   // props
-  this.times = options.times;
-  this.timeout = options.timeout;
-  this.fn = options.fn;
-  this.errors = options.errors;
+  this.times = options.times
+  this.timeout = options.timeout
+  this.fn = options.fn
+  this.errors = options.errors
 
   // message
-  this.message = `tried function ${ this.fn.name || '<anonymous>' } ${ this.times } times`;
+  this.message = `tried function ${this.fn.name || '<anonymous>'} ${
+    this.times
+  } times`
   if (this.timeout) {
-    this.message += ` with timeout = ${ this.timeout }ms`;
+    this.message += ` with timeout = ${this.timeout}ms`
   }
 
   // stack
-  Error.captureStackTrace(this, RetryError);
+  Error.captureStackTrace(this, RetryError)
 }
 
-inherits(RetryError, Error);
+inherits(RetryError, Error)
 
 /**
  * exports Error class
  */
 
-module.exports.RetryError = RetryError;
-module.exports.TimeoutError = ptimeout.TimeoutError;
+module.exports.RetryError = RetryError
+module.exports.TimeoutError = ptimeout.TimeoutError
