@@ -3,10 +3,18 @@
   "version": "0.2.0",
   "description": "add (timeout and fail) retry for async functions",
   "main": "index.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "index.js",
+    "types/index.d.ts",
+    "README.md",
+    "package.json"
+  ],
   "scripts": {
-    "test": "mocha",
-    "test-cover": "istanbul cover _mocha -- -u exports",
-    "report-cover": "codecov"
+    "test": "mocha && tsd",
+    "test-cover": "nyc --reporter=lcov --reporter=text mocha",
+    "report-cover": "codecov",
+    "gen-readme": "swig render ./readme/readme.md > README.md && prettier --write README.md"
   },
   "repository": {
     "type": "git",
@@ -24,21 +32,33 @@
   },
   "homepage": "https://github.com/magicdawn/promise.retry#readme",
   "devDependencies": {
-    "codecov": "^3.0.4",
-    "eslint": "^5.4.0",
+    "codecov": "^3.3.0",
+    "eslint": "^6.8.0",
     "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^5.2.0",
-    "should": "^13.2.3"
+    "mocha": "^6.1.4",
+    "should": "^13.2.3",
+    "husky": "latest",
+    "prettier": "latest",
+    "lint-staged": "latest",
+    "@magicdawn/prettier-config": "latest",
+    "@magicdawn/eslint-config": "latest",
+    "nyc": "^14.0.0"
   },
   "dependencies": {
-    "promise.timeout": "^0.2.0"
+    "promise.timeout": "^0.4.1"
   },
-  "files": [
-    "index.js",
-    "README.md",
-    "package.json"
-  ],
   "engines": {
     "node": ">=7.6.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,less,vue}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

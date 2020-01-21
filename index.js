@@ -2,9 +2,10 @@ const ptimeout = require('promise.timeout')
 const TimeoutError = ptimeout.TimeoutError
 const inherits = require('util').inherits
 
-module.exports = function promiseRetry(fn, options) {
+module.exports = function pretry(fn, options) {
   // backup
   const originalFn = fn
+  options = options || {}
 
   // 重试次数
   const times = options.times || 5 // 5 次
