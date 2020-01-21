@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.3.1 2020-01-21
+
+- fix index.d.ts `RetryError` def
+
 ## v0.3.0 2020-01-21
 
 - add types/index.d.ts
