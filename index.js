@@ -33,18 +33,28 @@ module.exports = function pretry(fn, options) {
         err = e
       }
 
-      if (err) {
-        errors[i] = err
-
-        // 额外错误处理
-        if (onerror) {
-          onerror(err, i) // err, current attempt, wait ?
-        }
-
-        continue
-      } else {
+      if (!err) {
         return result
       }
+
+      // js native error
+      if (err instanceof TypeError) {
+        throw err
+      }
+
+      // abort
+      if (err instanceof AbortError) {
+        throw err.originalError
+      }
+
+      // 额外错误处理
+      errors[i] = err
+      if (onerror) {
+        onerror(err, i) // err, current attempt, wait ?
+      }
+
+      // continue
+      continue
     }
 
     throw new RetryError({
@@ -56,28 +66,46 @@ module.exports = function pretry(fn, options) {
   }
 }
 
-function RetryError(options) {
-  Error.call(this)
+class RetryError extends Error {
+  constructor(options) {
+    super()
 
-  // props
-  this.times = options.times
-  this.timeout = options.timeout
-  this.fn = options.fn
-  this.errors = options.errors
+    // props
+    this.times = options.times
+    this.timeout = options.timeout
+    this.fn = options.fn
+    this.errors = options.errors
 
-  // message
-  this.message = `tried function ${this.fn.name || '<anonymous>'} ${
-    this.times
-  } times`
-  if (this.timeout) {
-    this.message += ` with timeout = ${this.timeout}ms`
+    // name
+    this.name = 'RetryError'
+
+    // message
+    this.message = `tried function ${this.fn.name || '<anonymous>'} ${this.times} times`
+    if (this.timeout) {
+      this.message += ` with timeout = ${this.timeout}ms`
+    }
+
+    // stack
+    Error.captureStackTrace(this, this.constructor)
   }
-
-  // stack
-  Error.captureStackTrace(this, RetryError)
 }
 
-inherits(RetryError, Error)
+class AbortError extends Error {
+  constructor(message) {
+    super()
+
+    if (message instanceof Error) {
+      this.originalError = message
+      ;({message} = message)
+    } else {
+      this.originalError = new Error(message)
+      this.originalError.stack = this.stack
+    }
+
+    this.name = 'AbortError'
+    this.message = message
+  }
+}
 
 /**
  * exports Error class
