@@ -11,7 +11,7 @@
     "package.json"
   ],
   "scripts": {
-    "test": "mocha && tsd",
+    "test": "mocha",
     "test-cover": "nyc --reporter=lcov --reporter=text mocha",
     "report-cover": "codecov",
     "gen-readme": "swig render ./readme/readme.md > README.md && prettier --write README.md"
@@ -31,21 +31,22 @@
     "url": "https://github.com/magicdawn/promise.retry/issues"
   },
   "homepage": "https://github.com/magicdawn/promise.retry#readme",
-  "devDependencies": {
-    "codecov": "^3.3.0",
-    "eslint": "^6.8.0",
-    "istanbul": "^1.1.0-alpha.1",
-    "mocha": "^6.1.4",
-    "should": "^13.2.3",
-    "husky": "latest",
-    "prettier": "latest",
-    "lint-staged": "latest",
-    "@magicdawn/prettier-config": "latest",
-    "@magicdawn/eslint-config": "latest",
-    "nyc": "^14.0.0"
-  },
   "dependencies": {
     "promise.timeout": "^0.4.1"
+  },
+  "devDependencies": {
+    "@magicdawn/eslint-config": "latest",
+    "@magicdawn/prettier-config": "latest",
+    "codecov": "^3.3.0",
+    "eslint": "^6.8.0",
+    "husky": "latest",
+    "istanbul": "^1.1.0-alpha.1",
+    "lint-staged": "latest",
+    "mocha": "^6.1.4",
+    "nyc": "^14.0.0",
+    "prettier": "latest",
+    "should": "^13.2.3",
+    "tsd": "^0.22.0"
   },
   "engines": {
     "node": ">=7.6.0"

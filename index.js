@@ -19,7 +19,7 @@ module.exports = function pretry(fn, options) {
   // 额外错误处理
   const onerror = options.onerror
 
-  return async function() {
+  return async function () {
     const ctx = this
     const args = [].slice.call(arguments)
     const errors = new Array(times)
@@ -96,7 +96,7 @@ class AbortError extends Error {
 
     if (message instanceof Error) {
       this.originalError = message
-      ;({message} = message)
+      ;({ message } = message)
     } else {
       this.originalError = new Error(message)
       this.originalError.stack = this.stack
@@ -111,5 +111,5 @@ class AbortError extends Error {
  * exports Error class
  */
 
-module.exports.RetryError = RetryError
 module.exports.TimeoutError = ptimeout.TimeoutError
+module.exports.RetryError = RetryError

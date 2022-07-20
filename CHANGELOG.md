@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.4.0 2022-07-20
+
+- fix: index.d.ts export `RetryError` as class
+- fix: `RetryError.errors` typo
+- fix: use TS v4 args rest tuple feature for `pretry`
+
 ## v0.3.1 2020-01-21
 
 - fix index.d.ts `RetryError` def
