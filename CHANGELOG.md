@@ -1,10 +1,8 @@
 # Changelog
 
-## v0.4.0 2022-07-20
+## v1.0.0 2022-07-20
 
-- fix: index.d.ts export `RetryError` as class
-- fix: `RetryError.errors` typo
-- fix: use TS v4 args rest tuple feature for `pretry`
+- move to `AbortController` & `AbortSignal`, use promise.timeout@1.0.0
 
 ## v0.3.1 2020-01-21
 

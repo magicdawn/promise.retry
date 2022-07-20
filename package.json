@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/magicdawn/promise.retry#readme",
   "dependencies": {
-    "promise.timeout": "^0.4.1"
+    "promise.timeout": "^1.0.0"
   },
   "devDependencies": {
     "@magicdawn/eslint-config": "latest",
@@ -46,6 +46,7 @@
     "nyc": "^14.0.0",
     "prettier": "latest",
     "should": "^13.2.3",
+    "swig-templates": "^2.0.3",
     "tsd": "^0.22.0"
   },
   "engines": {

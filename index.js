@@ -1,19 +1,18 @@
 const ptimeout = require('promise.timeout')
 const TimeoutError = ptimeout.TimeoutError
-const inherits = require('util').inherits
 
 module.exports = function pretry(fn, options) {
   // backup
   const originalFn = fn
   options = options || {}
 
-  // 重试次数
-  const times = options.times || 5 // 5 次
+  // retry times, default 5
+  const times = options.times || 5
 
-  // 超时
-  const _timeout = options.timeout || false
+  // retry timeout, default false
+  const _timeout = options.timeout
   if (_timeout) {
-    fn = ptimeout(fn, _timeout, true) // enable onCancel
+    fn = ptimeout(fn, _timeout)
   }
 
   // 额外错误处理
@@ -111,5 +110,5 @@ class AbortError extends Error {
  * exports Error class
  */
 
-module.exports.TimeoutError = ptimeout.TimeoutError
 module.exports.RetryError = RetryError
+module.exports.TimeoutError = TimeoutError

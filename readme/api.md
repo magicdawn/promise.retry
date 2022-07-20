@@ -37,6 +37,22 @@ props
 - `message` : `string` the error message
 - `errors` : `[err1, err2, ...]` the errors
 
+### `AbortSignal`
+
+if `options.timeout` Provided, ptimeout will provide a extra runtime argument `signal?: AbortSignal`
+use like below, see more at https://github.com/magicdawn/promise.timeout#singal
+
+```ts
+async fn(signal?: AbortSignal) {
+	signal?.addEventListener('abort', () => {
+		// custom clean up
+	})
+}
+
+const fn2 = pretry(fn, { timeout: 1000 })
+await fn2() // <- no `signal` arg here, the `signal` in fn is provided by ptimeout at runtime, only when options.timeout specified
+```
+
 ## See Also
 
 - [promise.timeout](https://github.com/magicdawn/promise.timeout)

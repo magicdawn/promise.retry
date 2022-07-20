@@ -1,5 +1,5 @@
-import { TimeoutError, OnCancel } from 'promise.timeout'
-export { TimeoutError, OnCancel }
+import { TimeoutError, EnsurePromise } from 'promise.timeout'
+export { TimeoutError, EnsurePromise }
 
 export class RetryError extends Error {
   times: number
@@ -8,19 +8,19 @@ export class RetryError extends Error {
   errors: Error[]
 }
 
-export interface RetryOptions {
+export type RetryOptions = {
   times?: number
   timeout?: number
   onerror?: (err: Error, index: number) => void
 }
 
-type EnsurePromise<T> = T extends Promise<any> ? T : Promise<T>
-
+// with signal
 export default function pretry<T extends unknown[], R>(
-  fn: (...args: [...args: T]) => R,
+  fn: (...args: [...args: T, signal?: AbortSignal]) => R,
   options?: RetryOptions
 ): (...args: T) => EnsurePromise<R>
+// without signal
 export default function pretry<T extends unknown[], R>(
-  fn: (...args: [...args: T, onCancel?: OnCancel]) => R,
+  fn: (...args: [...args: T]) => R,
   options?: RetryOptions
 ): (...args: T) => EnsurePromise<R>
