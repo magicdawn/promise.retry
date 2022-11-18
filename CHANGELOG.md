@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.2 2022-11-18
+
+- update promise.timeout
+
 ## v1.1.0 2022-11-11
 
 - use `export =` for dts file, no required `esModuleInterop` & can work in TypeScript ESM environment

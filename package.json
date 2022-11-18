@@ -34,12 +34,12 @@
   },
   "homepage": "https://github.com/magicdawn/promise.retry#readme",
   "dependencies": {
-    "promise.timeout": "^1.1.1"
+    "promise.timeout": "^1.1.2"
   },
   "devDependencies": {
     "@magicdawn/eslint-config": "^0.0.6",
     "@magicdawn/prettier-config": "^0.0.2",
-    "@types/jest": "^29.2.2",
+    "@types/jest": "^29.2.3",
     "eslint": "^6.8.0",
     "husky": "^8.0.2",
     "jest": "^29.3.1",
