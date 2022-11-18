@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.1.2 2022-11-18
+## v1.1.1 2022-11-18
 
 - update promise.timeout
 
