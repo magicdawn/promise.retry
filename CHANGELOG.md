@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2.0 2024-01-24
+
+- update promise.timeout@1.2.0
+- vitest
+
 ## v1.1.1 2022-11-18
 
 - update promise.timeout
