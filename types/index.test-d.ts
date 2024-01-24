@@ -1,5 +1,5 @@
 import { expectType } from 'tsd'
-import pretry, { TimeoutError, RetryError } from './'
+import pretry from './'
 
 function normal(a: number, b: string): Promise<number> {
   return Promise.resolve(1)

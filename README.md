@@ -4,7 +4,7 @@
 
 > add (timeout and fail) retry for async functions
 
-[![Build Status](https://img.shields.io/travis/magicdawn/promise.retry.svg?style=flat-square)](https://travis-ci.org/magicdawn/promise.retry)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/magicdawn/promise.retry/ci.yml?style=flat-square&branch=main)](https://github.com/magicdawn/promise.retry/actions/workflows/ci.yml)
 [![Coverage Status](https://img.shields.io/codecov/c/github/magicdawn/promise.retry.svg?style=flat-square)](https://codecov.io/gh/magicdawn/promise.retry)
 [![npm version](https://img.shields.io/npm/v/promise.retry.svg?style=flat-square)](https://www.npmjs.com/package/promise.retry)
 [![npm downloads](https://img.shields.io/npm/dm/promise.retry.svg?style=flat-square)](https://www.npmjs.com/package/promise.retry)
