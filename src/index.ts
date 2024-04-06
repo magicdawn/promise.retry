@@ -20,6 +20,8 @@ type FnRet<T extends AnyFunction> = (
   ...args: TrimLastAbortSignal<Parameters<T>>
 ) => Promise<Awaited<ReturnType<T>>>
 
+export default pretry
+
 export function pretry<T extends unknown[], R extends unknown>(
   fn: (...args: T) => R,
   options?: RetryOptions,

@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.2 2024-04-07
+
+- add back `export default`
+
 ## v2.0.1 2024-04-06
 
 - when error empty, it's a success. should not check result empty or not.
