@@ -20,6 +20,15 @@ $ npm i -S promise.retry
 
 this package require async/await environment.
 
+## Alternatives
+
+- [p-retry](https://www.npmjs.com/package/p-retry), `pretry(asyncAction, options)`
+- [radash.retry](https://radash-docs.vercel.app/docs/async/retry) `retry(options, asyncAction)`
+
+`asyncAction` means a function with no parameters, give `async funtion getUser(uid: string): Promise<User>`, u need to wrap parameter in a asyncAction: `const user = await pretry(() => getUser('zhangsan'), options)`
+
+this package take a different approach: `const tryGetUser = pretry(getUser, options)`, this is a async wrapper has same signature as `getUser`
+
 ## API
 
 ```js
