@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.1 2024-04-06
+
+- when error empty, it's a success. should not check result empty or not.
+
 ## v2.0.0 2024-04-06
 
 - move source to TypeScript, and type with `TrimLastAbortSignal<T>`

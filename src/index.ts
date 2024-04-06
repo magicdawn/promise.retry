@@ -53,7 +53,7 @@ export function pretry<T extends unknown[], R extends unknown>(
         err = e
       }
 
-      if (!err && result) {
+      if (!err) {
         return result
       }
 
