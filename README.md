@@ -43,8 +43,8 @@ const fnWithRetry = pretry(fn, options)
 
 - `fn` the original async function
 - `options`
-  - `times` : `int` try how many times
-  - `timeout` : `int` the timeout for each attempt, in ms
+  - `times` : `number` try how many times
+  - `timeout` : `number` the timeout for each attempt, in ms
   - `delay`: `number` or `(i: number) => number`, retry delay, in ms.
   - `onerror` : `(err: any, i: number) => any` add extra action on an attempt error
 
@@ -60,8 +60,8 @@ if all attempts failed, `p = fnWithRetry()`, `p` will be reject with a RetryErro
 
 props
 
-- `times` : `int` same as `pretry` options
-- `timeout` : `int` same as `pretry` options
+- `times` : `number` same as `pretry` options
+- `timeout` : `number` same as `pretry` options
 - `message` : `string` the error message
 - `errors` : `[err1, err2, ...]` the errors
 
