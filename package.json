@@ -2,11 +2,10 @@
   "name": "promise.retry",
   "version": "1.2.0",
   "description": "add (timeout and fail) retry for async functions",
-  "main": "index.js",
-  "types": "types/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "files": [
-    "index.js",
-    "types/index.d.ts",
+    "lib/",
     "README.md",
     "package.json"
   ],
@@ -14,8 +13,8 @@
     "gen-readme": "swig render ./_readme/readme.md > README.md && prettier --write README.md",
     "prepare": "husky install",
     "tsd": "tsd",
-    "test": "vitest run && tsd",
-    "test-cover": "vitest run --coverage && tsd"
+    "test": "vitest run",
+    "test-cover": "vitest run --coverage"
   },
   "repository": {
     "type": "git",
@@ -38,17 +37,18 @@
   "devDependencies": {
     "@magicdawn/eslint-config": "^0.1.0",
     "@magicdawn/prettier-config": "^0.0.3",
-    "@types/jest": "^29.5.11",
-    "@vitest/coverage-v8": "^1.2.1",
-    "eslint": "^8.56.0",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.12.5",
+    "@vitest/coverage-v8": "^1.4.0",
+    "eslint": "^8.57.0",
     "husky": "^8.0.3",
     "jest": "^29.7.0",
-    "lint-staged": "^15.2.0",
-    "prettier": "^3.2.4",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5",
     "should": "^13.2.3",
     "swig-templates": "^2.0.3",
-    "tsd": "^0.30.4",
-    "vitest": "^1.2.1"
+    "tsd": "^0.31.0",
+    "vitest": "^1.4.0"
   },
   "engines": {
     "node": ">=7.6.0"

@@ -23,26 +23,27 @@ this package require async/await environment.
 ## API
 
 ```js
-const pretry = require('promise.retry')
-const TimeoutError = pretry.TimeoutError
-const RetryError = pretry.RetryError
+import { pretry, TimeoutError, RetryError } from 'promise.retry'
 ```
 
 ### pretry
 
-```
-const fnWithRetry = pretry(fn, options);
+```js
+const fnWithRetry = pretry(fn, options)
 ```
 
 - `fn` the original async function
 - `options`
   - `times` : `int` try how many times
   - `timeout` : `int` the timeout for each attempt, in ms
-  - `onerror` : `function(err, index)` add extra action on an attempt error
+  - `delay`: `number` or `(i: number) => number`, retry delay, in ms.
+  - `onerror` : `(err: any, i: number) => any` add extra action on an attempt error
+
+i is always `0` based. (starts from `0`)
 
 ### TimeoutError
 
-reexport from `promise.timeout`, see https://github.com/magicdawn/promise.timeout#api
+re-export from `promise.timeout`, see https://github.com/magicdawn/promise.timeout#api
 
 ### RetryError
 
@@ -57,7 +58,7 @@ props
 
 ### `AbortSignal`
 
-if `options.timeout` Provided, ptimeout will provide a extra runtime argument `signal?: AbortSignal`
+if `options.timeout` is provided, ptimeout will provide a extra runtime argument `signal?: AbortSignal`
 use like below, see more at https://github.com/magicdawn/promise.timeout#singal
 
 ```ts

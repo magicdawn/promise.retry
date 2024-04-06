@@ -6,5 +6,8 @@ export default defineConfig({
     typecheck: {
       enabled: false,
     },
+    coverage: {
+      include: ['src'],
+    },
   },
 })

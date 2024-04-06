@@ -1,10 +1,18 @@
-const pretry = require('../index')
-require('should')
+import 'should'
+import { expect, vi } from 'vitest'
+import { RetryError, TimeoutError, pretry } from '../src'
 
-describe('Simple', function () {
-  let times, index
+let times: number
+let index: number
+
+beforeEach(function () {
+  times = 3
+  index = 1
+})
+
+describe('Simple', async function () {
   const fn = function () {
-    return new Promise(function (resolve, reject) {
+    return new Promise<number>(function (resolve, reject) {
       if (index < times) {
         index++
         reject(new Error('less than 3'))
@@ -13,11 +21,6 @@ describe('Simple', function () {
       }
     })
   }
-
-  beforeEach(function () {
-    times = 3
-    index = 1
-  })
 
   it('it works', async function () {
     // ok
@@ -37,7 +40,7 @@ describe('Simple', function () {
     try {
       await tryfn()
     } catch (e) {
-      e.should.instanceof(pretry.RetryError)
+      e.should.instanceof(RetryError)
       e.times.should.equal(times - 1)
     }
   })
@@ -70,14 +73,14 @@ describe('Simple', function () {
       times: times,
       timeout: 10,
       onerror: function (e) {
-        e.should.instanceof(pretry.TimeoutError)
+        e.should.instanceof(TimeoutError)
       },
     })
 
     try {
       await tryfn()
     } catch (e) {
-      e.should.instanceof(pretry.RetryError)
+      e.should.instanceof(RetryError)
 
       // props
       e.times.should.equal(times)
@@ -85,8 +88,55 @@ describe('Simple', function () {
       e.message.should.match(/tried function [\s\S]+? \d+ times/)
       e.message.should.match(/with timeout = 10ms/)
       e.errors.forEach((_e) => {
-        _e.should.instanceof(pretry.TimeoutError)
+        _e.should.instanceof(TimeoutError)
       })
     }
+  })
+
+  it('with delay', async () => {
+    let id = 1
+    const tryfn = pretry(
+      async () => {
+        ++id
+        if (id === 3) {
+          return id
+        } else {
+          throw new Error('boom')
+        }
+      },
+      {
+        times: times,
+        timeout: 10,
+        delay: 10,
+      },
+    )
+    expect(await tryfn()).toEqual(id)
+  })
+})
+
+describe('AbortSignal', () => {
+  it('trim AbortSignal', async () => {
+    const abortAction = vi.fn()
+
+    async function fn(num: number, signal?: AbortSignal) {
+      signal?.addEventListener('abort', () => {
+        // custom clean up
+        abortAction()
+      })
+
+      return await new Promise<number>((resolve, reject) => {
+        setTimeout(() => {
+          resolve(num)
+        }, 100)
+      })
+    }
+
+    const tryfn = pretry(fn, {
+      times: times,
+      timeout: 10,
+    })
+
+    await expect(() => tryfn(10)).rejects.toThrow('tried function fn 3 times with timeout = 10ms')
+    expect(abortAction).toHaveBeenCalledTimes(times)
   })
 })
