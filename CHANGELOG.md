@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.0 2024-04-06
+
+- move source to TypeScript, and type with `TrimLastAbortSignal<T>`
+- `pretry` named export only
+
 ## v1.2.0 2024-01-24
 
 - update promise.timeout@1.2.0

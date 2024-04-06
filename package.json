@@ -14,7 +14,9 @@
     "prepare": "husky install",
     "tsd": "tsd",
     "test": "vitest run",
-    "test-cover": "vitest run --coverage"
+    "test-cover": "vitest run --coverage",
+    "build": "tsc",
+    "prepublishOnly": "pnpm build && pnpm test"
   },
   "repository": {
     "type": "git",
