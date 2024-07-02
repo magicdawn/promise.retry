@@ -56,7 +56,7 @@ export function pretry<T extends unknown[], R extends unknown>(
       }
 
       if (!err) {
-        return result
+        return result!
       }
 
       // js native error, just throw silly mistakes

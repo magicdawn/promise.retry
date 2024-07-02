@@ -2,21 +2,29 @@
   "name": "promise.retry",
   "version": "2.0.2",
   "description": "add (timeout and fail) retry for async functions",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
   "files": [
-    "lib/",
+    "dist/",
     "README.md",
     "package.json"
   ],
   "scripts": {
     "gen-readme": "swig render ./_readme/readme.md > README.md && prettier --write README.md",
-    "prepare": "husky install",
+    "prepare": "husky",
     "tsd": "tsd",
     "test": "vitest run",
     "test-cover": "vitest run --coverage",
-    "build": "tsc",
-    "prepublishOnly": "pnpm build && pnpm test"
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "prepublishOnly": "pnpm build"
   },
   "repository": {
     "type": "git",
@@ -38,19 +46,21 @@
   },
   "devDependencies": {
     "@magicdawn/eslint-config": "^0.1.0",
-    "@magicdawn/prettier-config": "^0.0.3",
+    "@magicdawn/prettier-config": "^0.0.4",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.12.5",
-    "@vitest/coverage-v8": "^1.4.0",
-    "eslint": "^8.57.0",
-    "husky": "^8.0.3",
+    "@types/node": "^20.14.9",
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "^9.6.0",
+    "husky": "^9.0.11",
     "jest": "^29.7.0",
-    "lint-staged": "^15.2.2",
-    "prettier": "^3.2.5",
+    "lint-staged": "^15.2.7",
+    "prettier": "^3.3.2",
     "should": "^13.2.3",
     "swig-templates": "^2.0.3",
-    "tsd": "^0.31.0",
-    "vitest": "^1.4.0"
+    "tsd": "^0.31.1",
+    "vitest": "^1.6.0",
+    "tsup": "^8.1.0",
+    "typescript": "^5.5.3"
   },
   "engines": {
     "node": ">=7.6.0"
@@ -68,5 +78,6 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "packageManager": "pnpm@9.4.0+sha512.f549b8a52c9d2b8536762f99c0722205efc5af913e77835dbccc3b0b0b2ca9e7dc8022b78062c17291c48e88749c70ce88eb5a74f1fa8c4bf5e18bb46c8bd83a"
 }

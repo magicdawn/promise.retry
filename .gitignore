@@ -11,3 +11,8 @@ coverage.*
 
 /lib
 /dist
+
+# ts
+**/*.tsbuildinfo
+/lib
+/dist
