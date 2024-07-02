@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.0.3 2024-07-02
+
+### 🏡 Chores
+
+- Use tsup & make arethetypeswrong happy - by **magicdawn** [<samp>(15539)</samp>](https://github.com/magicdawn/promise.retry/commit/15539f7)
+- Add scripts.typeswrong - by **magicdawn** [<samp>(e26cb)</samp>](https://github.com/magicdawn/promise.retry/commit/e26cb22)
+
 ## v2.0.2 2024-04-07
 
 - add back `export default`
