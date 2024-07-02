@@ -1,4 +1,5 @@
-import ptimeout = require('promise.timeout')
+import ptimeout from 'promise.timeout'
+
 export { TimeoutError } from 'promise.timeout'
 
 export type RetryOptions = {
