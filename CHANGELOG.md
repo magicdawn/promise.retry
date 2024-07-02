@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.4 2024-07-02
+
+### 🐛 Fixes
+
+- Handle error of "dynamic import of `promise.timeout` is not supported" - by **magicdawn** [<samp>(7ca41)</samp>](https://github.com/magicdawn/promise.retry/commit/7ca41d9)
+
 ## v2.0.3 2024-07-02
 
 ### 🏡 Chores
