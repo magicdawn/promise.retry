@@ -16,3 +16,6 @@ coverage.*
 **/*.tsbuildinfo
 /lib
 /dist
+
+
+/demo

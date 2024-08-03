@@ -11,15 +11,23 @@ export type RetryOptions = {
 
 type AnyFunction = (...args: any[]) => any
 
-export type TrimLastAbortSignal<T extends unknown[]> = T extends []
-  ? T // empty args
-  : T extends [...infer U, AbortSignal?]
-    ? U
+export type TrimLastAbortSignal<T extends unknown[]> = T extends [...infer U, infer Last]
+  ? Last extends AbortSignal | undefined
+    ? unknown extends Last // <- GPT4-o 写的花活, 匹配 any
+      ? T
+      : U
     : T
+  : T
 
-type FnRet<T extends AnyFunction> = (
-  ...args: TrimLastAbortSignal<Parameters<T>>
-) => Promise<Awaited<ReturnType<T>>>
+// type x = TrimLastAbortSignal<[any]> // [any]
+// type y = TrimLastAbortSignal<[any, AbortSignal]> // [any]
+// type z = TrimLastAbortSignal<[AbortSignal]> // []
+// type z2 = TrimLastAbortSignal<[AbortSignal | undefined]> // []
+// type z3 = TrimLastAbortSignal<[AbortSignal?]> // [(AbortSignal | undefined)?] 试了好多不知道怎么去除
+// type w = TrimLastAbortSignal<[number, AbortSignal, string]> // [number, AbortSignal, string]
+
+// function fn(s?: AbortSignal) {}
+// type a = TrimLastAbortSignal<Parameters<typeof fn>> // now: [s?: AbortSignal | undefined], expect: []
 
 export default pretry
 
