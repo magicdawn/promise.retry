@@ -57,9 +57,9 @@ use like below, see more at https://github.com/magicdawn/promise.timeout#singal
 
 ```ts
 async fn(num: number, signal?: AbortSignal) {
-	signal.addEventListener('abort', () => {
-		// custom clean up
-	})
+  signal?.addEventListener('abort', () => {
+    // custom clean up
+  })
 }
 
 const fn2 = pretry(fn, { timeout: 1000 }) // (num: number, signal?: AbortSignal) => Promise<void>
