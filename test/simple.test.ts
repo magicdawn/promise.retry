@@ -1,6 +1,6 @@
 import 'should'
 import { expect, vi } from 'vitest'
-import { RetryError, TimeoutError, pretry } from '../src'
+import { RetryError, TimeoutError, pretry, pretryWithCleanUp } from '../src'
 
 let times: number
 let index: number
@@ -115,7 +115,7 @@ describe('Simple', async function () {
 })
 
 describe('AbortSignal', () => {
-  it('trim AbortSignal', async () => {
+  it('supports AbortSignal', async () => {
     const abortAction = vi.fn()
 
     async function fn(num: number, signal?: AbortSignal) {
@@ -131,7 +131,7 @@ describe('AbortSignal', () => {
       })
     }
 
-    const tryfn = pretry(fn, {
+    const tryfn = pretryWithCleanUp(fn, {
       times: times,
       timeout: 10,
     })

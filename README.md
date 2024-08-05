@@ -13,7 +13,7 @@
 ## Install
 
 ```sh
-$ npm i -S promise.retry
+$ pnpm add promise.retry
 ```
 
 ## Note
@@ -32,10 +32,10 @@ this package take a different approach: `const tryGetUser = pretry(getUser, opti
 ## API
 
 ```js
-import { pretry, TimeoutError, RetryError } from 'promise.retry'
+import { pretry, pretryWithCleanUp, TimeoutError, RetryError } from 'promise.retry'
 ```
 
-### pretry
+### `pretry`
 
 ```js
 const fnWithRetry = pretry(fn, options)
@@ -49,6 +49,29 @@ const fnWithRetry = pretry(fn, options)
   - `onerror` : `(err: any, i: number) => any` add extra action on an attempt error
 
 i is always `0` based. (starts from `0`)
+
+### `AbortSignal`
+
+if `options.timeout` is provided, ptimeout will provide a extra runtime argument `signal?: AbortSignal`
+use like below, see more at https://github.com/magicdawn/promise.timeout#singal
+
+```ts
+async fn(num: number, signal?: AbortSignal) {
+	signal.addEventListener('abort', () => {
+		// custom clean up
+	})
+}
+
+const fn2 = pretry(fn, { timeout: 1000 }) // (num: number, signal?: AbortSignal) => Promise<void>
+await fn2() // <- no `signal` arg here, the `signal` in fn is provided by ptimeout at runtime, only when options.timeout specified
+
+const fn3 = pretryWithCleanUp(fn, { timeout: 1000 }) // (num: number) => Promise<void>
+await fn3() // <- no `signal` arg here, the `signal` in fn is provided by ptimeout at runtime, only when options.timeout specified
+```
+
+### `pretryWithCleanUp`
+
+- only difference is it will trim last `AbortSignal?` arg, see `fn2` / `fn3` signature
 
 ### TimeoutError
 
@@ -64,22 +87,6 @@ props
 - `timeout` : `number` same as `pretry` options
 - `message` : `string` the error message
 - `errors` : `[err1, err2, ...]` the errors
-
-### `AbortSignal`
-
-if `options.timeout` is provided, ptimeout will provide a extra runtime argument `signal?: AbortSignal`
-use like below, see more at https://github.com/magicdawn/promise.timeout#singal
-
-```ts
-async fn(signal?: AbortSignal) {
-	signal?.addEventListener('abort', () => {
-		// custom clean up
-	})
-}
-
-const fn2 = pretry(fn, { timeout: 1000 })
-await fn2() // <- no `signal` arg here, the `signal` in fn is provided by ptimeout at runtime, only when options.timeout specified
-```
 
 ## See Also
 

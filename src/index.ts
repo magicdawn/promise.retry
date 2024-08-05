@@ -11,30 +11,12 @@ export type RetryOptions = {
 
 type AnyFunction = (...args: any[]) => any
 
-export type TrimLastAbortSignal<T extends unknown[]> = T extends [...infer U, infer Last]
-  ? Last extends AbortSignal | undefined
-    ? unknown extends Last // <- GPT4-o 写的花活, 匹配 any
-      ? T
-      : U
-    : T
-  : T
-
-// type x = TrimLastAbortSignal<[any]> // [any]
-// type y = TrimLastAbortSignal<[any, AbortSignal]> // [any]
-// type z = TrimLastAbortSignal<[AbortSignal]> // []
-// type z2 = TrimLastAbortSignal<[AbortSignal | undefined]> // []
-// type z3 = TrimLastAbortSignal<[AbortSignal?]> // [(AbortSignal | undefined)?] 试了好多不知道怎么去除
-// type w = TrimLastAbortSignal<[number, AbortSignal, string]> // [number, AbortSignal, string]
-
-// function fn(s?: AbortSignal) {}
-// type a = TrimLastAbortSignal<Parameters<typeof fn>> // now: [s?: AbortSignal | undefined], expect: []
-
 export default pretry
 
-export function pretry<T extends unknown[], R extends unknown>(
+export function pretry<T extends unknown[], R>(
   fn: (...args: T) => R,
   options?: RetryOptions,
-): (...args: TrimLastAbortSignal<T>) => Promise<Awaited<R>> {
+): (...args: T) => Promise<Awaited<R>> {
   // backup
   const originalFn = fn
   options = options || {}
@@ -51,7 +33,7 @@ export function pretry<T extends unknown[], R extends unknown>(
   // 额外错误处理
   const onerror = options.onerror
 
-  return async function pretryWrapper(...args: TrimLastAbortSignal<T>): Promise<Awaited<R>> {
+  return async function pretryWrapper(...args: T): Promise<Awaited<R>> {
     const ctx = this
     const errors = new Array(times)
 
@@ -102,6 +84,14 @@ export function pretry<T extends unknown[], R extends unknown>(
       errors: errors, // 错误列表
     })
   }
+}
+
+export function pretryWithCleanUp<T extends unknown[], R>(
+  fn: (...args: [...T, AbortSignal?]) => R,
+  options?: RetryOptions,
+): (...args: T) => Promise<Awaited<R>> {
+  // @ts-ignore
+  return pretry(fn, options)
 }
 
 export class RetryError extends Error {
