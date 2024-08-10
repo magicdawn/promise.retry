@@ -1,7 +1,5 @@
 import ptimeout from 'promise.timeout'
 
-export { TimeoutError } from 'promise.timeout'
-
 export type RetryOptions = {
   times?: number
   timeout?: number
@@ -94,20 +92,20 @@ export function pretryWithCleanUp<T extends unknown[], R>(
   return pretry(fn, options)
 }
 
+/**
+ * errors
+ */
+
+export { TimeoutError } from 'promise.timeout'
+
 export class RetryError extends Error {
   times: number
-  timeout: number
+  timeout: number | undefined
   fn: AnyFunction
   errors: Error[]
-
-  constructor(options) {
+  constructor(options: Pick<RetryError, 'times' | 'timeout' | 'fn' | 'errors'>) {
     super()
-
-    // props
-    this.times = options.times
-    this.timeout = options.timeout
-    this.fn = options.fn
-    this.errors = options.errors
+    Object.assign(this, options)
 
     // name
     this.name = 'RetryError'
